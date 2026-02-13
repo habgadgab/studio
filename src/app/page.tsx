@@ -28,11 +28,6 @@ export default function Home() {
 
   return (
     <div className="bg-background min-h-screen w-full font-body">
-      <header className="absolute top-0 left-0 w-full p-6 md:p-8 z-20">
-        <h1 className="text-2xl md:text-3xl font-headline font-bold text-foreground">
-          OpenMe
-        </h1>
-      </header>
       <main className="flex min-h-screen w-full flex-col items-center justify-center p-4">
         <Envelope
           isOpen={isOpen}
