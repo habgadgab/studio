@@ -18,12 +18,12 @@ export default function Home() {
     if (!isOpen) {
       setIsOpen(true);
       setIsAnimating(true);
-      setTimeout(() => setIsAnimating(false), 1200); // Open animation lock
+      setTimeout(() => setIsAnimating(false), 1000); // Flap animation lock
     } else if (isOpen && !isRevealed) {
       setIsRevealed(true);
       setMessage("Remember to smile, you've got this!");
       setIsAnimating(true);
-      setTimeout(() => setIsAnimating(false), 1200); // Reveal animation lock
+      setTimeout(() => setIsAnimating(false), 1000); // Reveal animation lock
     }
   };
 
@@ -36,16 +36,22 @@ export default function Home() {
 
   const handleReset = () => {
     setShowButton(false);
-    setIsOpen(false);
     setIsRevealed(false);
+    setIsAnimating(true);
+
     setTimeout(() => {
-        setMessage('');
-    }, 300)
+      setIsOpen(false);
+    }, 1000);
+
+    setTimeout(() => {
+      setMessage('');
+      setIsAnimating(false);
+    }, 2000);
   };
 
   return (
-    <div className="bg-background min-h-screen w-full font-body overflow-hidden">
-      <header className="absolute top-0 left-0 w-full p-6 md:p-8">
+    <div className="bg-background min-h-screen w-full font-body">
+      <header className="absolute top-0 left-0 w-full p-6 md:p-8 z-20">
         <h1 className="text-2xl md:text-3xl font-headline font-bold text-foreground">
           OpenMe
         </h1>
@@ -62,7 +68,7 @@ export default function Home() {
             <Button
               onClick={handleReset}
               variant="outline"
-              className="animate-in fade-in duration-500"
+              className="animate-in fade-in duration-500 z-20"
             >
               <RotateCcw className="mr-2 h-4 w-4" />
               Another Message

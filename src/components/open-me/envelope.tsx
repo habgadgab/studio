@@ -18,25 +18,26 @@ export function Envelope({
 }: EnvelopeProps) {
   return (
     <div
-      onClick={onClick}
+      onClick={!isRevealed ? onClick : undefined}
       className={cn(
-        'group relative w-[300px] h-[200px] md:w-[450px] md:h-[300px] cursor-pointer transition-transform duration-500 ease-out',
-        !isOpen && 'hover:scale-105',
+        'group relative w-[300px] h-[200px] md:w-[450px] md:h-[300px] transition-transform duration-500 ease-out',
+        !isOpen && !isRevealed && 'hover:scale-105',
+        isRevealed ? 'cursor-default' : 'cursor-pointer',
         'font-headline'
       )}
       style={{ perspective: '2000px' }}
     >
       {/* Back panel */}
-      <div className="absolute inset-0 rounded-lg shadow-xl bg-secondary"></div>
+      <div className={cn("absolute inset-0 rounded-lg shadow-xl bg-secondary transition-opacity duration-1000", isRevealed && "opacity-30")}></div>
 
       {/* Letter */}
       <div
         className={cn(
-          'absolute top-0 left-0 right-0 h-[98%] bg-card rounded-lg shadow-inner mx-auto w-[96%] transition-transform duration-700 ease-out flex items-center justify-center p-8 text-center',
+          'absolute top-0 left-0 right-0 h-[98%] bg-card rounded-lg shadow-inner mx-auto w-[96%] transition-all duration-1000 ease-in-out flex items-center justify-center p-8 text-center z-10',
           {
-            '-translate-y-[110%]': !isOpen,
-            '-translate-y-[60%]': isOpen && !isRevealed,
-            'translate-y-0': isRevealed,
+            'transform -translate-y-[110%]': !isOpen,
+            'transform -translate-y-[60%]': isOpen && !isRevealed,
+            'transform -translate-y-[110%] md:-translate-y-[120%] scale-150 md:scale-175': isRevealed,
           }
         )}
       >
@@ -47,7 +48,7 @@ export function Envelope({
         <div
           className={cn(
             'transition-opacity duration-500 text-foreground text-lg md:text-xl',
-            !isRevealed ? 'opacity-0' : 'opacity-100 delay-700'
+            !isRevealed ? 'opacity-0' : 'opacity-100 delay-1000'
           )}
         >
           {message}
@@ -56,7 +57,7 @@ export function Envelope({
 
       {/* Envelope body - Front */}
       <div
-        className="absolute inset-0 w-full h-full bg-primary"
+        className={cn("absolute inset-0 w-full h-full bg-primary transition-opacity duration-1000", isRevealed && "opacity-30")}
         style={{
           clipPath:
             'polygon(0% 100%, 0% 45%, 50% 65%, 100% 45%, 100% 100%)',
@@ -65,7 +66,10 @@ export function Envelope({
 
       {/* Envelope flap */}
       <div
-        className="absolute top-0 left-0 w-full h-1/2 transition-transform duration-700 ease-in-out"
+        className={cn(
+            "absolute top-0 left-0 w-full h-1/2 transition-transform duration-1000 ease-in-out",
+            isRevealed && "opacity-30"
+        )}
         style={{
           transformStyle: 'preserve-3d',
           transformOrigin: 'bottom',
