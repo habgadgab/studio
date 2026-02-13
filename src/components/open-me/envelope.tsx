@@ -22,7 +22,7 @@ export function Envelope({
       className={cn(
         'group relative w-[300px] h-[200px] md:w-[450px] md:h-[300px] transition-transform duration-500 ease-out',
         !isOpen && !isRevealed && 'hover:scale-105',
-        isRevealed ? 'cursor-default transform translate-y-20 md:translate-y-24' : 'cursor-pointer',
+        isRevealed ? 'cursor-default transform translate-y-32 md:translate-y-40' : 'cursor-pointer',
         'font-headline'
       )}
       style={{ perspective: '2000px' }}
