@@ -1,16 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Envelope } from '@/components/open-me/envelope';
-import { Button } from '@/components/ui/button';
-import { RotateCcw } from 'lucide-react';
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [isRevealed, setIsRevealed] = useState(false);
   const [message, setMessage] = useState('');
   const [isAnimating, setIsAnimating] = useState(false);
-  const [showButton, setShowButton] = useState(false);
 
   const handleClick = () => {
     if (isAnimating) return;
@@ -21,32 +18,12 @@ export default function Home() {
       setTimeout(() => setIsAnimating(false), 1000); // Flap animation lock
     } else if (isOpen && !isRevealed) {
       setIsRevealed(true);
-      setMessage("Remember to smile, you've got this!");
+      setMessage(
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+      );
       setIsAnimating(true);
       setTimeout(() => setIsAnimating(false), 1000); // Reveal animation lock
     }
-  };
-
-  useEffect(() => {
-    if (isRevealed) {
-      const buttonTimer = setTimeout(() => setShowButton(true), 1500);
-      return () => clearTimeout(buttonTimer);
-    }
-  }, [isRevealed]);
-
-  const handleReset = () => {
-    setShowButton(false);
-    setIsRevealed(false);
-    setIsAnimating(true);
-
-    setTimeout(() => {
-      setIsOpen(false);
-    }, 1000);
-
-    setTimeout(() => {
-      setMessage('');
-      setIsAnimating(false);
-    }, 2000);
   };
 
   return (
@@ -63,18 +40,7 @@ export default function Home() {
           onClick={handleClick}
           message={message}
         />
-        <div className="mt-24 h-10">
-          {showButton && !isAnimating && (
-            <Button
-              onClick={handleReset}
-              variant="outline"
-              className="animate-in fade-in duration-500 z-20"
-            >
-              <RotateCcw className="mr-2 h-4 w-4" />
-              Another Message
-            </Button>
-          )}
-        </div>
+        <div className="mt-24 h-10" />
       </main>
     </div>
   );
