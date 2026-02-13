@@ -7,34 +7,37 @@ import { RotateCcw } from 'lucide-react';
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isRevealed, setIsRevealed] = useState(false);
   const [message, setMessage] = useState('');
   const [isAnimating, setIsAnimating] = useState(false);
   const [showButton, setShowButton] = useState(false);
 
-  // Prevent spamming clicks while animating
-  useEffect(() => {
-    if (isOpen) {
+  const handleClick = () => {
+    if (isAnimating) return;
+
+    if (!isOpen) {
+      setIsOpen(true);
       setIsAnimating(true);
-      const timer = setTimeout(() => setIsAnimating(false), 1200); // Animation duration
-      const buttonTimer = setTimeout(() => setShowButton(true), 1500);
-      return () => {
-        clearTimeout(timer);
-        clearTimeout(buttonTimer);
-      };
+      setTimeout(() => setIsAnimating(false), 1200); // Open animation lock
+    } else if (isOpen && !isRevealed) {
+      setIsRevealed(true);
+      setMessage("Remember to smile, you've got this!");
+      setIsAnimating(true);
+      setTimeout(() => setIsAnimating(false), 1200); // Reveal animation lock
     }
-  }, [isOpen]);
-
-  const handleOpen = () => {
-    if (isOpen || isAnimating) return;
-
-    setIsOpen(true);
-    setMessage("Remember to smile, you've got this!");
   };
+
+  useEffect(() => {
+    if (isRevealed) {
+      const buttonTimer = setTimeout(() => setShowButton(true), 1500);
+      return () => clearTimeout(buttonTimer);
+    }
+  }, [isRevealed]);
 
   const handleReset = () => {
     setShowButton(false);
     setIsOpen(false);
-    // A small delay to allow the close animation to start before clearing the message
+    setIsRevealed(false);
     setTimeout(() => {
         setMessage('');
     }, 300)
@@ -50,7 +53,8 @@ export default function Home() {
       <main className="flex min-h-screen w-full flex-col items-center justify-center p-4">
         <Envelope
           isOpen={isOpen}
-          onClick={handleOpen}
+          isRevealed={isRevealed}
+          onClick={handleClick}
           message={message}
         />
         <div className="mt-24 h-10">

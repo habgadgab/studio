@@ -1,16 +1,18 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { Heart } from 'lucide-react';
+import { Heart, MousePointerClick } from 'lucide-react';
 
 interface EnvelopeProps {
   isOpen: boolean;
+  isRevealed: boolean;
   onClick: () => void;
   message: string;
 }
 
 export function Envelope({
   isOpen,
+  isRevealed,
   onClick,
   message,
 }: EnvelopeProps) {
@@ -31,13 +33,21 @@ export function Envelope({
       <div
         className={cn(
           'absolute top-0 left-0 right-0 h-[98%] bg-card rounded-lg shadow-inner mx-auto w-[96%] transition-transform duration-700 ease-out flex items-center justify-center p-8 text-center',
-          isOpen ? 'translate-y-0' : '-translate-y-[110%]'
+          {
+            '-translate-y-[110%]': !isOpen,
+            '-translate-y-[60%]': isOpen && !isRevealed,
+            'translate-y-0': isRevealed,
+          }
         )}
       >
+        <div className={cn('absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-300', isOpen && !isRevealed ? "opacity-100" : "opacity-0 pointer-events-none")}>
+            <MousePointerClick className="w-12 h-12 text-muted-foreground" />
+            <p className="mt-2 text-lg font-semibold text-muted-foreground">Click to read</p>
+        </div>
         <div
           className={cn(
             'transition-opacity duration-500 text-foreground text-lg md:text-xl',
-            !isOpen ? 'opacity-0' : 'opacity-100 delay-700'
+            !isRevealed ? 'opacity-0' : 'opacity-100 delay-700'
           )}
         >
           {message}
