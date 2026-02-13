@@ -19,10 +19,7 @@ export default function Home() {
     } else if (isOpen && !isRevealed) {
       setIsRevealed(true);
       setMessage(
-        'Halo bb, i miss u so much i lobeuuuu <3'
-      );
-      setMessage(
-        'can u be my valentine <3 ???'
+        'Halo bb, i miss u na subra gusto na kita makita sobra. Im so thankful for you bb and i love you soso much. can u be my valentine <3 ???'
       );
       setIsAnimating(true);
       setTimeout(() => setIsAnimating(false), 1000); // Reveal animation lock
