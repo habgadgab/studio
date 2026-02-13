@@ -7,14 +7,12 @@ interface EnvelopeProps {
   isOpen: boolean;
   onClick: () => void;
   message: string;
-  isLoading: boolean;
 }
 
 export function Envelope({
   isOpen,
   onClick,
   message,
-  isLoading,
 }: EnvelopeProps) {
   return (
     <div
@@ -39,18 +37,11 @@ export function Envelope({
         <div
           className={cn(
             'transition-opacity duration-500 text-foreground text-lg md:text-xl',
-            isLoading || !isOpen ? 'opacity-0' : 'opacity-100 delay-700'
+            !isOpen ? 'opacity-0' : 'opacity-100 delay-700'
           )}
         >
           {message}
         </div>
-        {isLoading && (
-          <div className="absolute space-y-3 w-4/5">
-            <div className="h-4 bg-muted rounded animate-pulse"></div>
-            <div className="h-4 bg-muted rounded animate-pulse"></div>
-            <div className="h-4 w-4/5 mx-auto bg-muted rounded animate-pulse"></div>
-          </div>
-        )}
       </div>
 
       {/* Envelope body - Front */}

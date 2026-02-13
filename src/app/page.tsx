@@ -2,14 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { Envelope } from '@/components/open-me/envelope';
-import { generateUpliftingMessage } from '@/ai/flows/generate-uplifting-message';
 import { Button } from '@/components/ui/button';
 import { RotateCcw } from 'lucide-react';
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [showButton, setShowButton] = useState(false);
 
@@ -26,21 +24,11 @@ export default function Home() {
     }
   }, [isOpen]);
 
-  const handleOpen = async () => {
+  const handleOpen = () => {
     if (isOpen || isAnimating) return;
 
     setIsOpen(true);
-    setIsLoading(true);
-
-    try {
-      const result = await generateUpliftingMessage({});
-      setMessage(result.message);
-    } catch (error) {
-      console.error(error);
-      setMessage("Remember to smile, you've got this!");
-    } finally {
-      setIsLoading(false);
-    }
+    setMessage("Remember to smile, you've got this!");
   };
 
   const handleReset = () => {
@@ -64,7 +52,6 @@ export default function Home() {
           isOpen={isOpen}
           onClick={handleOpen}
           message={message}
-          isLoading={isLoading}
         />
         <div className="mt-24 h-10">
           {showButton && !isAnimating && (
