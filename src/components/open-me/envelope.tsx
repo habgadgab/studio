@@ -22,7 +22,7 @@ export function Envelope({
       className={cn(
         'group relative w-[300px] h-[200px] md:w-[450px] md:h-[300px] transition-transform duration-500 ease-out',
         !isOpen && !isRevealed && 'hover:scale-105',
-        isRevealed ? 'cursor-default' : 'cursor-pointer',
+        isRevealed ? 'cursor-default transform translate-y-20 md:translate-y-24' : 'cursor-pointer',
         'font-headline'
       )}
       style={{ perspective: '2000px' }}
@@ -37,7 +37,7 @@ export function Envelope({
           {
             'transform -translate-y-[110%]': !isOpen,
             'transform -translate-y-[60%]': isOpen && !isRevealed,
-            'transform -translate-y-[110%] md:-translate-y-[120%] scale-150 md:scale-175': isRevealed,
+            'transform -translate-y-[80%] md:-translate-y-[90%] scale-150 md:scale-175': isRevealed,
           }
         )}
       >
@@ -47,7 +47,7 @@ export function Envelope({
         </div>
         <div
           className={cn(
-            'transition-opacity duration-500 delay-1000 text-foreground text-lg md:text-xl',
+            'transition-opacity duration-500 delay-500 text-foreground text-lg md:text-xl',
             isRevealed ? 'opacity-100' : 'opacity-0'
           )}
         >
