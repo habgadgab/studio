@@ -19,7 +19,7 @@ export default function Home() {
     } else if (isOpen && !isRevealed) {
       setIsRevealed(true);
       setMessage(
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+        'Halo bb, i miss u so much, can u be my valentine <3???'
       );
       setIsAnimating(true);
       setTimeout(() => setIsAnimating(false), 1000); // Reveal animation lock
