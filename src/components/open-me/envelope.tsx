@@ -47,8 +47,8 @@ export function Envelope({
         </div>
         <div
           className={cn(
-            'transition-opacity duration-500 text-foreground text-lg md:text-xl',
-            !isRevealed ? 'opacity-0' : 'opacity-100 delay-1000'
+            'transition-opacity duration-500 delay-1000 text-foreground text-lg md:text-xl',
+            isRevealed ? 'opacity-100' : 'opacity-0'
           )}
         >
           {message}
